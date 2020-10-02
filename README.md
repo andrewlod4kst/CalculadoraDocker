@@ -14,17 +14,17 @@ Como fazer build com o Docker Compose:
   - Assim que todas as imagens tiverem sido construídas, digite docker-compose up
 <br>
 Como usar:<br>
-  Browser:
-    - Entre em 127.0.0.1:8000/docs
-    - Clique em "POST"
-    - Clique em "Try it out"
-    - Escolha uma das opções como função: soma, subtracao, multiplicacao, divisao
-    - Escolha os dois números
-    - Clique em Execute
-    - O resultado estará localizado em "Response body"
-  <br>
-  Curl request:<br>
-    - Cole o seguinte comando na linha de comando: curl -X POST "http://127.0.0.1:8000/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"funcao\":\"subtracao\", \"num1\":1, \"num2\":2}"
+Browser:
+  - Entre em 127.0.0.1:8000/docs
+  - Clique em "POST"
+  - Clique em "Try it out"
+  - Escolha uma das opções como função: soma, subtracao, multiplicacao, divisao
+  - Escolha os dois números
+  - Clique em Execute
+  - O resultado estará localizado em "Response body"
+<br>
+Curl request:
+  - Cole o seguinte comando na linha de comando: curl -X POST "http://127.0.0.1:8000/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"funcao\":\"subtracao\", \"num1\":1, \"num2\":2}"
 <br>
 Informações sobre a estrutura do projeto:<br><br>
 
