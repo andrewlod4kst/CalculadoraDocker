@@ -1,0 +1,42 @@
+version: "3"
+   
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-calculadora
+    ports:
+      - "8000:8000"
+    links:
+      - soma
+      - subtracao
+      - multiplicacao
+      - divisao
+  soma:
+    build:
+      context: .
+      dockerfile: Dockerfile-soma
+    ports:
+      - "8100:8100"
+  subtracao:
+    build:
+      context: .
+      dockerfile: Dockerfile-subtracao
+    ports:
+      - "8200:8200"
+  multiplicacao:
+    build:
+      context: .
+      dockerfile: Dockerfile-multiplicacao
+    ports:
+      - "8300:8300"
+    links:
+      - soma
+  divisao:
+    build:
+      context: .
+      dockerfile: Dockerfile-divisao
+    ports:
+      - "8400:8400"
+    links:
+      - subtracao

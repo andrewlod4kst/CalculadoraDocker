@@ -1,0 +1,19 @@
+# set base image (host OS)
+FROM python:3.8
+
+# set the working directory in the container
+WORKDIR .
+
+EXPOSE 8100
+
+# install dependencies
+RUN pip install uvicorn
+RUN pip install fastapi
+RUN pip install pydantic
+RUN pip install requests
+
+# copy the content of the local src directory to the working directory
+COPY . .
+
+# command to run on container start
+ENTRYPOINT [ "uvicorn", "soma:app", "--host", "0.0.0.0", "--port", "8100" ]
