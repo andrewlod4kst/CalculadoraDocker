@@ -13,7 +13,7 @@ Como fazer build com o Docker Compose:
   - Digite docker-compose build
   - Assim que todas as imagens tiverem sido construídas, digite docker-compose up
 <br>
-Como usar:<br>
+Como usar<br>
 Browser:
   - Entre em 127.0.0.1:8000/docs
   - Clique em "POST"
