@@ -23,7 +23,7 @@ Como usar:<br>
     - Clique em Execute
     - O resultado estará localizado em "Response body"
   <br>
-  Curl request:
+  Curl request:<br>
     - Cole o seguinte comando na linha de comando: curl -X POST "http://127.0.0.1:8000/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"funcao\":\"subtracao\", \"num1\":1, \"num2\":2}"
 <br>
 Informações sobre a estrutura do projeto:<br><br>
