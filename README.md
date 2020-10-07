@@ -18,28 +18,27 @@ Browser:
   
   - Entre em 127.0.0.1:8000/docs
   - Clique em "POST"
+  - Escolha uma das opções POST: soma, sub, multi, div
   - Clique em "Try it out"
-  - Escolha uma das opções como função: soma, subtracao, multiplicacao, divisao
   - Escolha os dois números
   - Clique em Execute
   - O resultado estará localizado em "Response body"
 <br>
 Curl request:
  
- - Cole o seguinte comando na linha de comando: curl -X POST "http://127.0.0.1:8000/" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"funcao\":\"subtracao\", \"num1\":1, \"num2\":2}"
+ - Cole o seguinte comando na linha de comando (no lugar de <funcao>, coloque soma, sub, multi ou div: curl -X POST "http://127.0.0.1:8000/<funcao>" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"num1\":1, \"num2\":2}"
 <br>
 Informações sobre a estrutura do projeto:<br><br>
 
-Dockerfile: O projeto possui 5 Dockerfiles, um para cada container.<br>
+Dockerfile: O projeto possui 6 Dockerfiles, um para cada container e um chamado libcalculadora, que gerencia as dependências.<br>
 As dependências incluídas nos Dockerfiles são: Python 3.8, Uvicorn, FastAPI, Pydantic e Request.<br>
-Os Dockerfiles também estabelecem qual porta será usada por qual container, e definem o comando do Uvicorn para inicializar cada aplicação.<br>
 
 docker-compose.yml: Estabelece os links entre os containers para que eles consigam se comunicar, suas portas e o Dockerfile necessário para construir a imagem de cada container.
 <br><br>
 Arquivos Python:
 <br><br>
 Calculadora mestre:<br>
-calculadora.py: Recebe os argumentos funcao (str), num1 (int) e num2 (int) e delega para um outro container dependendo da função pedida, por meio de um POST request.<br><br>
+calculadora.py: Recebe os argumentos num1 (int) e num2 (int) e delega para um outro container dependendo da função definida por meio da rota, por meio de um POST request.<br><br>
 
 Funções da calculadora: Recebem os argumentos num1 (int) e num2 (int) e retornam um JSON com a chave "resultado" e o resultado como valor.<br>
 soma.py: Soma os dois números.<br>
