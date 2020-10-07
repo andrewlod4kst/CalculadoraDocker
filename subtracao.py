@@ -7,6 +7,6 @@ class Subtracao(BaseModel):
 	num1: int
 	num2: int
 
-@app.post("/subtracao")
+@app.post("/")
 async def calcular(req: Subtracao):
     return {"resultado": req.num1 - req.num2}

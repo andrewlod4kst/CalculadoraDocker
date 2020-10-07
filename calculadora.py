@@ -4,27 +4,36 @@ import requests
 import json
 import sys
 import socket
-print(socket.gethostbyname(socket.gethostname()))
+import os
 
-print(sys.platform)
+ip_address = str(os.environ.get("IP_ADDRESS"))
+port_soma = str(os.environ.get("PORT_SOMA"))
+port_sub = str(os.environ.get("PORT_SUB"))
+port_multi = str(os.environ.get("PORT_MULTI"))
+port_div = str(os.environ.get("PORT_DIV"))
 
 app = FastAPI()
 
 class MyRequest(BaseModel):
-	funcao: str
-	num1: int
-	num2: int
-
-operacoes = ["soma","subtracao","multiplicacao","divisao"]
-portas = [8100,8200,8300,8400]
-ips = ["soma","subtracao","multiplicacao","divisao"]
-
-@app.post("/")
-async def calcular(req: MyRequest):
-    if req.funcao not in operacoes:
-        return {"message": "Erro: funcao invalida"}
-    port = portas[operacoes.index(req.funcao)]
-    ip = ips[operacoes.index(req.funcao)]
-    response = requests.post("http://" + ip + ":" + str(port) + "/" + req.funcao, headers={'content-type':'application/json'}, data='{"num1":' + str(req.num1) + ',"num2":' + str(req.num2) + '}')
-    result = json.loads(response.content.decode("utf-8"))
-    return result
+  num1: int
+  num2: int
+    
+@app.post("/soma")
+async def soma(req : MyRequest):
+	response = requests.post(ip_address + ":" + port_soma, headers={'Content-type':'application/json'},data=req.json())
+	return json.loads(response.content)
+	
+@app.post("/sub")
+async def sub(req : MyRequest):
+	response = requests.post(ip_address + ":" + port_sub, headers={'Content-type':'application/json'},data=req.json())
+	return json.loads(response.content)
+	
+@app.post("/multi")
+async def multi(req : MyRequest):
+	response = requests.post(ip_address + ":" + port_multi, headers={'Content-type':'application/json'},data=req.json())
+	return json.loads(response.content)
+	
+@app.post("/div")
+async def div(req : MyRequest):
+	response = requests.post(ip_address + ":" + port_div, headers={'Content-type':'application/json'},data=req.json())
+	return json.loads(response.content)

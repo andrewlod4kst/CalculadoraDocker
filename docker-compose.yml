@@ -1,42 +1,73 @@
-version: "3"
+version: "3.2"
+   
+networks:
+  calc_overlay:
+    driver: overlay
+    attachable: true
    
 services:
+  libcalculadora:
+    build:
+      context: .
+      dockerfile: Dockerfile-depend
+    image: "libcalculadora:1.0"
   web:
     build:
       context: .
       dockerfile: Dockerfile-calculadora
+    image: "calculadora:${VERSAO}"
+    command: "uvicorn calculadora:app --host 0.0.0.0 --port ${PORT_CALC}"
     ports:
-      - "8000:8000"
-    links:
-      - soma
-      - subtracao
-      - multiplicacao
-      - divisao
+      - "${PORT_CALC}:${PORT_CALC}"
+    networks:
+      - calc_overlay
+    env_file:
+      - .env
   soma:
     build:
       context: .
       dockerfile: Dockerfile-soma
+    image: "soma:${VERSAO}"
+    command: "uvicorn soma:app --host 0.0.0.0 --port ${PORT_SOMA}"
     ports:
-      - "8100:8100"
+      - "${PORT_SOMA}:${PORT_SOMA}"
+    networks:
+      - calc_overlay
+    env_file:
+      - .env
   subtracao:
     build:
       context: .
       dockerfile: Dockerfile-subtracao
+    image: "subtracao:${VERSAO}"
+    command: "uvicorn subtracao:app --host 0.0.0.0 --port ${PORT_SUB}"
     ports:
-      - "8200:8200"
+      - "${PORT_SUB}:${PORT_SUB}"
+    networks:
+      - calc_overlay
+    env_file:
+      - .env
   multiplicacao:
     build:
       context: .
       dockerfile: Dockerfile-multiplicacao
+    image: "multiplicacao:${VERSAO}"
+    command: "uvicorn multiplicacao:app --host 0.0.0.0 --port ${PORT_MULTI}"
     ports:
-      - "8300:8300"
-    links:
-      - soma
+      - "${PORT_MULTI}:${PORT_MULTI}"
+    networks:
+      - calc_overlay
+    env_file:
+      - .env
   divisao:
     build:
       context: .
       dockerfile: Dockerfile-divisao
+    image: "divisao:${VERSAO}"
+    command: "uvicorn divisao:app --host 0.0.0.0 --port ${PORT_DIV}"
     ports:
-      - "8400:8400"
-    links:
-      - subtracao
+      - "${PORT_DIV}:${PORT_DIV}"
+    networks:
+      - calc_overlay
+    env_file:
+      - .env
